@@ -1,4 +1,4 @@
-﻿<UserControl xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"  xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"  
+﻿<UserControl xmlns:dxlc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"  xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"  xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"  
     x:Class="Jira_Bulk_Issues_Helper.Views.MainView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -33,16 +33,33 @@
                     <Setter Property="Margin" Value="0 5 0 5"/>
                 </Style>
             </Grid.Resources>
-            <dxe:TextEdit Grid.Row="0" NullText="E-Mail Address" Text="{Binding Path=EMail}"/>
-            <dxe:TextEdit Grid.Row="1" NullText="API Token" Text="{Binding Path=APIToken}"/>
+            <dxe:TextEdit Grid.Row="0" NullText="E-Mail Address" Text="{Binding Path=EMail}"/>            <dxe:TextEdit Grid.Row="1" NullText="API Token" Text="{Binding Path=APIToken}"/>
             <dxe:TextEdit Grid.Row="2" NullText="Domain Name" Text="{Binding Path=DomainName}"/>
             <dx:SimpleButton Grid.Row="3" HorizontalAlignment="Right" Content="Authendicate" Command="{Binding Path=Login}"/>
         </Grid>
         <Grid Grid.Row="1" Visibility="{Binding Path=IsLoggedIn, Converter={dx:BooleanToVisibilityConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <dxe:ComboBoxEdit Grid.Row="0" NullText="Select Project" DisplayMember="name" ValueMember="key" ItemsSource="{Binding Path=Projects}"/>
+            <dxe:ComboBoxEdit Grid.Row="0" NullText="Select Project" DisplayMember="name" SelectedItem="{Binding Path=SelectedProject}" ItemsSource="{Binding Path=Projects}"/>
+            <dxlc:GroupBox Grid.Row="1" Padding="0" Header="Issue Types">
+                <dxe:ListBoxEdit DataContext="{Binding  Path=SelectedProject}" ItemsSource="{Binding Path=issuetypes}" SelectionMode="Multiple">
+                    <dxe:ListBoxEdit.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=name}"/>
+                        </DataTemplate>
+                    </dxe:ListBoxEdit.ItemTemplate>
+                    <dxe:ListBoxEdit.StyleSettings>
+                        <dxe:CheckedListBoxEditStyleSettings/>
+                    </dxe:ListBoxEdit.StyleSettings>
+                </dxe:ListBoxEdit>
+            </dxlc:GroupBox>
+            <dxe:SpinEdit Grid.Row="2" MinValue="1" MaxValue="999999999" Value="{Binding Path=IssuesMaxCount}" />
+            <dx:SimpleButton Grid.Row="3" HorizontalAlignment="Right" Content="Create Issues" />
+            <dxe:ProgressBarEdit Grid.Row="4" Value="{Binding Path=Progress}" />
         </Grid>
     </Grid>
 </UserControl>

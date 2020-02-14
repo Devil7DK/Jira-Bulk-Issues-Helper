@@ -19,6 +19,8 @@
         public string getBaseUrl() => string.Format(this.baseUrl, domain);
 
         public string getMetaUrl() => "/issue/createmeta";
+
+        public string getIssueCreateUrl() => "/issue";
         #endregion
     }
 }

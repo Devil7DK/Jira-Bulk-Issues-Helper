@@ -16,11 +16,13 @@ namespace Jira_Bulk_Issues_Helper.ViewModels
         private UrlBuilder urlBuilder;
         private RestClient client;
 
-        private string email = "";
-        private string apiToken = "";
-        private string domainName = "";
+        private string email = "dineshthangavel47@gmail.com";
+        private string apiToken = "JRkbgJ8ChzmWakHKFhqr6912";
+        private string domainName = "devil7dk";
         private bool isLoggedIn = false;
         private ObservableCollection<Project> projects = new ObservableCollection<Project>();
+        private Project selectedProject = null;
+        private int issuesMaxCount = 1;
         #endregion
 
         #region Properties
@@ -31,9 +33,11 @@ namespace Jira_Bulk_Issues_Helper.ViewModels
         public string DomainName { get => domainName; set => SetProperty(ref domainName, value, "DomainName"); }
         public bool IsLoggedIn { get => isLoggedIn; set => SetProperty(ref isLoggedIn, value, "IsLoggedIn"); }
         public ObservableCollection<Project> Projects { get => projects; set => SetProperty(ref projects, value, "Projects"); }
+        public Project SelectedProject { get => selectedProject; set => SetProperty(ref selectedProject, value, "SelectedProject"); }
+        public int IssuesMaxCount { get => issuesMaxCount; set => SetProperty(ref issuesMaxCount, value, "IssuesMaxCount"); }
         #endregion
 
-        #region Commands
+            #region Commands
         public AsyncCommand Login { get; }
         #endregion
 
