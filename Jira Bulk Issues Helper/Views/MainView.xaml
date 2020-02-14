@@ -4,14 +4,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm" 
+    xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
     xmlns:ViewModels="clr-namespace:Jira_Bulk_Issues_Helper.ViewModels"
     mc:Ignorable="d" d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.DataContext>
         <ViewModels:MainViewModel/>
     </UserControl.DataContext>
+    <dxmvvm:Interaction.Behaviors>
+        <dx:DXMessageBoxService/>
+    </dxmvvm:Interaction.Behaviors>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -33,6 +37,12 @@
             <dxe:TextEdit Grid.Row="1" NullText="API Token" Text="{Binding Path=APIToken}"/>
             <dxe:TextEdit Grid.Row="2" NullText="Domain Name" Text="{Binding Path=DomainName}"/>
             <dx:SimpleButton Grid.Row="3" HorizontalAlignment="Right" Content="Authendicate" Command="{Binding Path=Login}"/>
+        </Grid>
+        <Grid Grid.Row="1" Visibility="{Binding Path=IsLoggedIn, Converter={dx:BooleanToVisibilityConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <dxe:ComboBoxEdit Grid.Row="0" NullText="Select Project" ItemsSource="{Binding Path=Projects}"/>
         </Grid>
     </Grid>
 </UserControl>
