@@ -42,7 +42,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <dxe:ComboBoxEdit Grid.Row="0" NullText="Select Project" ItemsSource="{Binding Path=Projects}"/>
+            <dxe:ComboBoxEdit Grid.Row="0" NullText="Select Project" DisplayMember="name" ValueMember="key" ItemsSource="{Binding Path=Projects}"/>
         </Grid>
     </Grid>
 </UserControl>
